@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vue+CDN</title>
+</head>
+<style>
+  .box {
+    width: 50px;
+    height: 50px;
+    background-color: red;
+    padding: 1rem;
+    gap: 1rem;
+  }
+  .box2 {
+    width: 50px;
+    height: 50px;
+    background-color: blue;
+    padding: 1rem;
+    gap: 1rem;
+  }
+  .box3 {
+    width: 50px;
+    height: 50px;
+    background-color: yellow;
+    padding: 1rem;
+    gap: 1rem;
+  }
+  [v-cloak] {
+    display: none;
+  }
+ 
+</style>
+
+<body>
+
+
+  <div id="root" v-cloak>
+
+    <login-form />
+    <button @click.prevent="toggle">Show Box</button>
+    <div class="box" v-if="isVisible"> Hello from Box! </div>
+  </div>
+
+
+</body>
+
+<script src="https://unpkg.com/vue@next"></script>
+
+<script>
+
+  let app = Vue.createApp({
+    data: function () {
+      return {
+        message: 'Hello Vue!',
+        isVisible: false,
+        isVisibleTwo: false
+      }
+    },
+  methods: {
+    toggle() {
+      this.isVisible = !this.isVisible;
+      console.log(this.isVisible);
+    },
+    greet(message) {
+      console.log(greeting);
+    }
+  },
+  submit() {
+      this.$emit('someEvent')
+    },
+  })
+
+ app.component('login-form', {
+  template: `
+  <form @submit.prevent="handleSubmit">
+    <h1>{{ title }}</h1>
+    <input type="email" v-model="email"/>
+    <input type="password" v-model="password"/>
+    <button type="submit">Submit</button>
+    </form>
+  `,
+  data: function () {
+    return {
+      title: 'login form',
+      email: '',
+      password: ''
+    }
+  },
+  methods: {
+    handleSubmit() {
+      console.log(this.email, this.password);
+    }
+  }
+ })
+  app.mount('#root')
+</script>
+
+</html>
